@@ -4,7 +4,9 @@ import org.example.camera.analytics.db.CaptureSessionEntity;
 import org.example.camera.analytics.service.AnalyticsService;
 import org.springframework.stereotype.Service;
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
+
+
 
 @Service
 @WebService(

@@ -28,9 +28,10 @@
 
         <!-- JAXB API: нужно чтобы DTO с JAXB-аннотациями компилились на JDK 17 -->
         <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
         </dependency>
+
 
         <!-- Lombok по желанию -->
         <dependency>

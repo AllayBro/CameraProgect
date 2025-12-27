@@ -59,9 +59,10 @@
 
         <!-- JAX-WS API (нужно для javax.xml.ws.Endpoint на JDK 17) -->
         <dependency>
-            <groupId>javax.xml.ws</groupId>
-            <artifactId>jaxws-api</artifactId>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
         </dependency>
+
 
         <!-- JAXB runtime: нужно в рантайме для маршалинга SOAP DTO -->
         <dependency>

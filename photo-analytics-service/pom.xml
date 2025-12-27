@@ -12,11 +12,12 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>catalog-service</artifactId>
+    <!-- ВАЖНО: реальный artifactId этого модуля -->
+    <artifactId>photo-analytics-service</artifactId>
     <packaging>jar</packaging>
 
-    <name>catalog-service</name>
-    <description>Catalog service (REST + SOAP)</description>
+    <name>photo-analytics-service</name>
+    <description>Photo analytics service (REST + SOAP)</description>
 
     <dependencies>
 
@@ -38,7 +39,7 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
-        <!-- JPA -->
+        <!-- JPA (Jakarta через Boot 3 / Hibernate 6) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -51,19 +52,21 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- SOAP (CXF JAX-WS) -->
+        <!-- SOAP (CXF JAX-WS, Jakarta) -->
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-spring-boot-starter-jaxws</artifactId>
+            <version>4.0.4</version>
         </dependency>
 
-        <!-- JAX-WS API (нужно для javax.xml.ws.Endpoint на JDK 17) -->
+        <!-- Jakarta JAX-WS API (чтобы import jakarta.xml.ws.* собирался) -->
         <dependency>
-            <groupId>javax.xml.ws</groupId>
-            <artifactId>jaxws-api</artifactId>
+            <groupId>jakarta.xml.ws</groupId>
+            <artifactId>jakarta.xml.ws-api</artifactId>
+            <version>4.0.2</version>
         </dependency>
 
-        <!-- JAXB runtime: нужно в рантайме для маршалинга SOAP DTO -->
+        <!-- JAXB runtime -->
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
@@ -87,12 +90,10 @@
 
     <build>
         <plugins>
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
         </plugins>
     </build>
 
