@@ -1,0 +1,13 @@
+<!ELEMENT manifest (droneId, operatorId, startTime, endTime, photos)>
+        <!ELEMENT droneId (#PCDATA)>
+        <!ELEMENT operatorId (#PCDATA)>
+        <!ELEMENT startTime (#PCDATA)>
+        <!ELEMENT endTime (#PCDATA)>
+
+        <!ELEMENT photos (photo+)>
+        <!ELEMENT photo (fileKey, takenAt, latitude, longitude, altitude)>
+        <!ELEMENT fileKey (#PCDATA)>
+        <!ELEMENT takenAt (#PCDATA)>
+        <!ELEMENT latitude (#PCDATA)>
+        <!ELEMENT longitude (#PCDATA)>
+        <!ELEMENT altitude (#PCDATA)>

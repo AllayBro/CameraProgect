@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE manifest SYSTEM "manifest.dtd">
+<manifest>
+    <droneId>DRONE-001</droneId>
+    <operatorId>OP-001</operatorId>
+    <startTime>2026-01-01T10:00:00Z</startTime>
+    <endTime>2026-01-01T10:00:15Z</endTime>
+
+    <photos>
+        <photo>
+            <fileKey>photo-0001.jpg</fileKey>
+            <takenAt>2026-01-01T10:00:00Z</takenAt>
+            <latitude>55.755800</latitude>
+            <longitude>37.617300</longitude>
+            <altitude>120.0</altitude>
+        </photo>
+
+        <photo>
+            <fileKey>photo-0002.jpg</fileKey>
+            <takenAt>2026-01-01T10:00:05Z</takenAt>
+            <latitude>55.755800</latitude>
+            <longitude>37.617301</longitude>
+            <altitude>120.0</altitude>
+        </photo>
+
+        <photo>
+            <fileKey>photo-0003.jpg</fileKey>
+            <takenAt>2026-01-01T10:00:10Z</takenAt>
+            <latitude>55.755800</latitude>
+            <longitude>37.617302</longitude>
+            <altitude>120.0</altitude>
+        </photo>
+
+        <photo>
+            <fileKey>photo-0004.jpg</fileKey>
+            <takenAt>2026-01-01T10:00:15Z</takenAt>
+            <latitude>55.755800</latitude>
+            <longitude>37.617303</longitude>
+            <altitude>120.0</altitude>
+        </photo>
+    </photos>
+</manifest>

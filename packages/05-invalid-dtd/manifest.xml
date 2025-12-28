@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE manifest SYSTEM "manifest.dtd">
+<manifest>
+    <droneId>DRONE-BADDTD</droneId>
+    <operatorId>OP-BADDTD</operatorId>
+    <startTime>2026-01-01T10:40:00Z</startTime>
+    <endTime>2026-01-01T10:40:05Z</endTime>
+
+    <!-- photos отсутствует: DTD должен отвергнуть -->
+</manifest>

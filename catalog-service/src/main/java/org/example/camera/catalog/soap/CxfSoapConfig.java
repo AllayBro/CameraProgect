@@ -1,7 +1,6 @@
 package org.example.camera.catalog.soap;
 
-import javax.xml.ws.Endpoint;
-
+import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.Bus;
 import org.apache.cxf.jaxws.EndpointImpl;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +12,7 @@ public class CxfSoapConfig {
     @Bean
     public Endpoint catalogSoapEndpoint(Bus bus, CatalogSoapApiImpl impl) {
         EndpointImpl endpoint = new EndpointImpl(bus, impl);
-        endpoint.publish("/catalog");   // ВАЖНО: строка в кавычках
+        endpoint.publish("/catalog");
         return endpoint;
     }
 }

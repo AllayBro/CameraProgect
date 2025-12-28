@@ -1,0 +1,66 @@
+@analytics = http://localhost:8081
+@catalog   = http://localhost:8082
+@penalty   = http://localhost:8083
+
+@droneId = DRONE-001
+@operatorId = OP-001
+
+### 1) START SESSION (analytics)
+# Выполните запрос и скопируйте sessionId из ответа в переменную ниже.
+POST {{analytics}}/api/analytics/sessions?droneId={{droneId}}&operatorId={{operatorId}}
+Accept: application/json
+
+@sessionId = PUT_SESSION_ID_HERE
+
+### 2) UPLOAD MANIFEST (analytics) -> triggers: analytics -> catalog -> penalty
+POST {{analytics}}/api/analytics/sessions/{{sessionId}}/manifest
+Content-Type: multipart/form-data; boundary=BOUNDARY
+
+--BOUNDARY
+Content-Disposition: form-data; name="manifest"; filename="manifest.xml"
+Content-Type: application/xml
+
+< ./manifest.xml
+--BOUNDARY--
+
+### 3) CHECK SESSION STATE (analytics)
+GET {{analytics}}/api/analytics/sessions/{{sessionId}}
+Accept: application/json
+
+### 4) OPTIONAL: CALL PENALTY DIRECTLY FOR ONE RECORD (idempotent)
+# recordId = sessionId:fileKey
+@fileKey = photo-0002.jpg
+@recordId = {{sessionId}}:{{fileKey}}
+
+POST {{penalty}}/api/penalty/check
+Content-Type: application/json
+Accept: application/json
+
+{
+  "recordId": "{{recordId}}",
+  "fileKey": "{{fileKey}}",
+  "droneId": "{{droneId}}",
+  "operatorId": "{{operatorId}}",
+  "speed": 120.0,
+  "location": "55.755800,37.627300",
+  "time": "2026-01-01T10:00:05Z",
+  "confidence": 1.0
+}
+
+### Upload rules.xml
+POST {{catalog}}/api/catalog/rules
+Content-Type: application/xml
+
+< ./rules.xml
+
+### XPath over rules.xml: speed limit
+GET {{catalog}}/api/catalog/rules/search?xpath=string(/rules/speedLimitKmh)
+
+### Get record JSON
+GET {{catalog}}/api/catalog/records/{{recordId}}
+
+### Get record XML
+GET {{catalog}}/api/catalog/records/{{recordId}}/xml
+
+### XPath over catalog records: штраф > 0
+GET {{catalog}}/api/catalog/search?xpath=//record[number(amount) > 0]

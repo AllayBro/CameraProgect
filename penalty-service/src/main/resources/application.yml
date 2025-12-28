@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: penalty-service
+  datasource:
+    url: jdbc:h2:mem:penaltydb;DB_CLOSE_DELAY=-1
+    driverClassName: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+
+server:
+  port: 8083
+
+cxf:
+  path: /ws
+
+penalty:
+  speed-limit-kmh: 60
+  review-confidence-threshold: 0.75
+  amounts:
+    - from-over-kmh: 0
+      to-over-kmh: 20
+      amount: 500
+    - from-over-kmh: 20
+      to-over-kmh: 40
+      amount: 1000
+    - from-over-kmh: 40
+      amount: 2000

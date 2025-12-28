@@ -31,4 +31,9 @@ public class AnalyticsController {
         int photos = service.submitManifest(id, manifest.getInputStream());
         return "OK, photos=" + photos;
     }
+    @PostMapping(value = "/sessions/{id}/package", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String uploadPackage(@PathVariable String id, @RequestPart("package") MultipartFile zip) throws Exception {
+        AnalyticsService.PackageSubmitResult r = service.submitPackage(id, zip.getInputStream());
+        return "OK, photos=" + r.photos + ", checksum=" + r.packageChecksum;
+    }
 }

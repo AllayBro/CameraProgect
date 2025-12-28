@@ -42,5 +42,36 @@
         </dependency>
 
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>3.2.0</version>
+
+                <executions>
+                    <execution>
+                        <id>xjc</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+
+                        <configuration>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/contracts/manifest/manifest.xsd</source>
+                                <source>${project.basedir}/src/main/resources/contracts/catalog/catalog.xsd</source>
+                                <source>${project.basedir}/src/main/resources/contracts/rules/rules.xsd</source>
+                            </sources>
+
+                            <packageName>org.example.camera.common.contract</packageName>
+                            <outputDirectory>${project.build.directory}/generated-sources/xjc</outputDirectory>
+                            <clearOutputDir>false</clearOutputDir>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
