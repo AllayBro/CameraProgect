@@ -12,11 +12,11 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>catalog-service</artifactId>
+    <artifactId>penalty-service</artifactId>
     <packaging>jar</packaging>
 
-    <name>catalog-service</name>
-    <description>Catalog service (REST + SOAP)</description>
+    <name>penalty-service</name>
+    <description>Penalty service (REST + SOAP)</description>
 
     <dependencies>
 
@@ -24,6 +24,7 @@
         <dependency>
             <groupId>org.example.camera</groupId>
             <artifactId>common</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- REST -->
@@ -51,26 +52,25 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- SOAP (CXF JAX-WS) -->
+        <!-- SOAP (CXF JAX-WS, Jakarta) -->
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-spring-boot-starter-jaxws</artifactId>
         </dependency>
 
-        <!-- JAX-WS API (нужно для javax.xml.ws.Endpoint на JDK 17) -->
+        <!-- Jakarta JAX-WS API -->
         <dependency>
-            <groupId>jakarta.xml.bind</groupId>
-            <artifactId>jakarta.xml.bind-api</artifactId>
+            <groupId>jakarta.xml.ws</groupId>
+            <artifactId>jakarta.xml.ws-api</artifactId>
         </dependency>
 
-
-        <!-- JAXB runtime: нужно в рантайме для маршалинга SOAP DTO -->
+        <!-- JAXB runtime -->
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
         </dependency>
 
-        <!-- Lombok опционально -->
+        <!-- Lombok (опционально) -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -88,12 +88,10 @@
 
     <build>
         <plugins>
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
         </plugins>
     </build>
 

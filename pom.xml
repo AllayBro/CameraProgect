@@ -5,21 +5,12 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- Spring Boot 3.x (jakarta.* стек) -->
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.0</version>
-        <relativePath/>
-    </parent>
-
     <groupId>org.example.camera</groupId>
     <artifactId>camera-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>camera-parent</name>
-    <description>Multi-module project: analytics -> catalog -> penalty</description>
 
     <modules>
         <module>common</module>
@@ -31,21 +22,29 @@
     <properties>
         <java.version>17</java.version>
 
-        <!-- CXF (JAX-WS, jakarta.*) -->
+        <!-- Spring Boot 3.x (Tomcat 10 / Jakarta) -->
+        <spring-boot.version>3.2.1</spring-boot.version>
+
+        <!-- CXF 4.x (Jakarta JAX-WS) -->
         <cxf.version>4.0.4</cxf.version>
+        <jakarta.xml.ws.version>4.0.2</jakarta.xml.ws.version>
 
-        <!-- Jakarta WS / JAXB -->
-        <jakarta.jaxws.api.version>4.0.2</jakarta.jaxws.api.version>
-        <jakarta.jaxb.api.version>4.0.2</jakarta.jaxb.api.version>
-
-        <!-- XML/XSD/DTD валидатор -->
-        <xerces.version>2.12.2</xerces.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.release>${java.version}</maven.compiler.release>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <!-- Управление версиями всего Spring Boot стека -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
-            <!-- BOM для CXF -->
+            <!-- Управление версиями CXF -->
             <dependency>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-bom</artifactId>
@@ -54,32 +53,12 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- Версии для XML/WS/JAXB -->
-            <dependency>
-                <groupId>xerces</groupId>
-                <artifactId>xercesImpl</artifactId>
-                <version>${xerces.version}</version>
-            </dependency>
-
+            <!-- На всякий случай фиксируем Jakarta JAX-WS API -->
             <dependency>
                 <groupId>jakarta.xml.ws</groupId>
                 <artifactId>jakarta.xml.ws-api</artifactId>
-                <version>${jakarta.jaxws.api.version}</version>
+                <version>${jakarta.xml.ws.version}</version>
             </dependency>
-
-            <dependency>
-                <groupId>jakarta.xml.bind</groupId>
-                <artifactId>jakarta.xml.bind-api</artifactId>
-                <version>${jakarta.jaxb.api.version}</version>
-            </dependency>
-
-            <!-- Чтобы модули могли подключать common БЕЗ version -->
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>common</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
         </dependencies>
     </dependencyManagement>
 
@@ -87,22 +66,56 @@
         <pluginManagement>
             <plugins>
 
+                <!-- Единый компилятор под Java 17 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.11.0</version>
                     <configuration>
                         <release>${java.version}</release>
-                        <encoding>UTF-8</encoding>
+                        <encoding>${project.build.sourceEncoding}</encoding>
                     </configuration>
                 </plugin>
 
+                <!-- Spring Boot plugin -->
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                </plugin>
+
+                <!-- Если Maven случайно стартует под JDK 23 — пусть сразу падает -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>3.4.1</version>
+                    <executions>
+                        <execution>
+                            <id>enforce-java</id>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                            <configuration>
+                                <rules>
+                                    <requireJavaVersion>
+                                        <version>[17,18)</version>
+                                    </requireJavaVersion>
+                                </rules>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
 
             </plugins>
         </pluginManagement>
+
+        <plugins>
+            <!-- применяем enforcer ко всем модулям -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+            </plugin>
+        </plugins>
     </build>
 
 </project>

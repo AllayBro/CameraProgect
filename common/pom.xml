@@ -20,20 +20,27 @@
 
     <dependencies>
 
-        <!-- Для XSD/DTD валидации и нормального XML парсинга -->
+        <!-- XML/XSD/DTD -->
         <dependency>
             <groupId>xerces</groupId>
             <artifactId>xercesImpl</artifactId>
+            <version>2.12.2</version>
         </dependency>
 
-        <!-- JAXB API: нужно чтобы DTO с JAXB-аннотациями компилились на JDK 17 -->
+
+        <!-- JAXB API (нужно для компиляции, если используете JAXB-аннотации/контракты) -->
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
         </dependency>
 
+        <!-- JAXB runtime (может понадобиться при работе с JAXB-моделями в рантайме) -->
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+        </dependency>
 
-        <!-- Lombok по желанию -->
+        <!-- Lombok (опционально) -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -42,8 +49,11 @@
         </dependency>
 
     </dependencies>
+
     <build>
         <plugins>
+
+            <!-- Генерация Java-классов из XSD -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxb2-maven-plugin</artifactId>
@@ -71,6 +81,7 @@
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
 
